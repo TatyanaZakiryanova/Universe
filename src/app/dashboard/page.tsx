@@ -1,16 +1,16 @@
 import { unstable_cache } from 'next/cache';
 import { NASAData } from '../types/nasa';
+import styles from './page.module.scss';
 
 const API_KEY = process.env.NASA_API_KEY;
-
 const API_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
 const getDataOfTheDay = unstable_cache(
-  async (): Promise<NASAData> => {
+  async (): Promise<NASAData | { error: string }> => {
     const response = await fetch(API_URL);
 
     if (!response.ok) {
-      throw new Error('Failed to fetch data from NASA API');
+      return { error: 'Failed to fetch data from NASA API' };
     }
 
     const data: NASAData = await response.json();
@@ -18,23 +18,27 @@ const getDataOfTheDay = unstable_cache(
     return data;
   },
   ['data-of-the-day'],
-  { revalidate: 86400 },
+  { revalidate: 3600 },
 );
 
 export default async function DataOfTheDay() {
-  try {
-    const data = await getDataOfTheDay();
+  const data = await getDataOfTheDay();
 
-    const isVideo = data.media_type === 'video';
+  if ('error' in data) {
+    return <p>{data.error}</p>;
+  }
 
-    return (
-      <div>
+  const isVideo = data.media_type === 'video';
+
+  return (
+    <div className={styles.page}>
+      <div className={styles.content}>
         <h1>{data.title}</h1>
         <h2>{data.date}</h2>
         {isVideo ? (
           <div>
             <iframe
-              width="80%"
+              width="90%"
               height="400px"
               src={data.url}
               allow="autoplay; encrypted-media"
@@ -43,12 +47,10 @@ export default async function DataOfTheDay() {
             ></iframe>
           </div>
         ) : (
-          <img src={data.url} alt={data.title} width="80%" />
+          <img src={data.url} alt={data.title} width="90%" />
         )}
         <p>{data.explanation}</p>
       </div>
-    );
-  } catch (error) {
-    return <p>Failed to load the data of the day</p>;
-  }
+    </div>
+  );
 }

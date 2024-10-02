@@ -1,12 +1,11 @@
 import Link from 'next/link';
+import styles from './page.module.scss';
 
 export default function Home() {
   return (
-    <div>
+    <main className={styles.home}>
       <h1>Universe</h1>
-      <Link href="/dashboard">
-        <button>Explore Universe</button>
-      </Link>
-    </div>
+      <Link href="/dashboard">Explore the universe</Link>
+    </main>
   );
 }
