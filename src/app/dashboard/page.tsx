@@ -18,14 +18,14 @@ const getDataOfTheDay = unstable_cache(
     return data;
   },
   ['data-of-the-day'],
-  { revalidate: 3600 },
+  { revalidate: 43200 },
 );
 
 export default async function DataOfTheDay() {
   const data = await getDataOfTheDay();
 
   if ('error' in data) {
-    return <p>{data.error}</p>;
+    return <p className={styles.error}>{data.error}</p>;
   }
 
   const isVideo = data.media_type === 'video';

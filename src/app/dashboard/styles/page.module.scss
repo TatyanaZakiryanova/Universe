@@ -1,12 +1,18 @@
-.page {
+.error {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    flex-grow: 1;
+    padding: 200px 25px 25px 25px; 
+    background-color: rgb(59, 59, 59);
+    font-size: 25px;
+}
+
+.page {
+    display: flex;
     text-align: center;
-    min-height: 100vh;
+    flex-grow: 1;
     .content {
-        margin-left: 240px;
         padding: 25px; 
         flex-grow: 1;
         background-color: rgb(59, 59, 59);
