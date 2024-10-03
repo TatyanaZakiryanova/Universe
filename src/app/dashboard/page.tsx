@@ -1,6 +1,6 @@
 import { unstable_cache } from 'next/cache';
 import { NASAData } from '../types/nasa';
-import styles from './page.module.scss';
+import styles from './styles/page.module.scss';
 
 const API_KEY = process.env.NASA_API_KEY;
 const API_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;

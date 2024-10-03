@@ -1,9 +1,10 @@
-import styles from './loading.module.scss';
+import styles from './styles/loading.module.scss';
 
 export default function Loading() {
   return (
     <div className={styles.skeleton}>
-      <h2>Loading...</h2>
+      <div className={styles.header}></div>
+      <div className={styles.content}></div>
     </div>
   );
 }
