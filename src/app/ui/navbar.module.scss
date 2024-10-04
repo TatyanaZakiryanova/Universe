@@ -1,12 +1,14 @@
 .navbar {
-  min-width: 240px; 
+  min-width: 200px; 
   background-color: rgb(44, 44, 44);
   padding: 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); 
   ul {
     list-style: none;
+    display: flex;
+    align-items: center;
     li {
-      margin-bottom: 15px;
+      margin-right: 5px;
       a {
         display: block; 
         text-decoration: none;
