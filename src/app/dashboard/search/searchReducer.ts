@@ -1,0 +1,32 @@
+import { Action, State } from '@/app/types/nasa';
+
+export const initialState: State = {
+  photos: [],
+  searchValue: '',
+  loading: false,
+  error: false,
+  isSearched: false,
+  selectedPhoto: null,
+  isModalOpen: false,
+};
+
+export const reducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'SET_SEARCH_VALUE':
+      return { ...state, searchValue: action.payload };
+    case 'FETCH_START':
+      return { ...state, loading: true, error: false, photos: [], isSearched: true };
+    case 'FETCH_SUCCESS':
+      return { ...state, loading: false, photos: action.payload };
+    case 'FETCH_ERROR':
+      return { ...state, loading: false, error: true };
+    case 'SET_IS_SEARCHED':
+      return { ...state, isSearched: action.payload };
+    case 'OPEN_MODAL':
+      return { ...state, selectedPhoto: action.payload, isModalOpen: true };
+    case 'CLOSE_MODAL':
+      return { ...state, selectedPhoto: null, isModalOpen: false };
+    default:
+      return state;
+  }
+};

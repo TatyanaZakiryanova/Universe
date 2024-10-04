@@ -21,6 +21,7 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: stretch; 
+        animation: contentFadeIn 0.4s ease; 
     .closebutton {
         align-self: flex-end;
         margin: 0 0 10px 0;
@@ -54,4 +55,14 @@
     }
 }
 
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px); 
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); 
+    }
+}
   

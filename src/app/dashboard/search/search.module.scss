@@ -48,6 +48,7 @@
       text-align: center;
       width: 300px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
       &:hover {
           transform: scale(1.05); 
           box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4); 
@@ -62,7 +63,6 @@
         max-width: 100%;
         height: auto;
         border-radius: 5px;
-        cursor: pointer;
       }
     }
   }

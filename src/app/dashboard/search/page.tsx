@@ -1,29 +1,21 @@
 'use client';
 
 import { Item, Link, Photo } from '@/app/types/nasa';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useReducer } from 'react';
 import styles from './search.module.scss';
 import Modal from '@/app/ui/modal/modal';
+import { initialState, reducer } from './searchReducer';
 
 export default function Search() {
-  const [photos, setPhotos] = useState<Photo[]>([]);
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { photos, searchValue, loading, error, isSearched, selectedPhoto, isModalOpen } = state;
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(e.target.value);
+    dispatch({ type: 'SET_SEARCH_VALUE', payload: e.target.value });
   };
 
   const fetchData = async () => {
-    setLoading(true);
-    setError(false);
-    setPhotos([]);
-    setIsSearched(true);
-
+    dispatch({ type: 'FETCH_START' });
     try {
       const response = await fetch(
         `https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`,
@@ -41,11 +33,9 @@ export default function Search() {
             fullImageLink: imageLinkFull,
           };
         }) || [];
-      setPhotos(photosData);
+      dispatch({ type: 'FETCH_SUCCESS', payload: photosData });
     } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
+      dispatch({ type: 'FETCH_ERROR' });
     }
   };
 
@@ -56,13 +46,11 @@ export default function Search() {
   };
 
   const openModal = (photo: Photo) => {
-    setSelectedPhoto(photo);
-    setIsModalOpen(true);
+    dispatch({ type: 'OPEN_MODAL', payload: photo });
   };
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedPhoto(null);
+    dispatch({ type: 'CLOSE_MODAL' });
   };
 
   return (

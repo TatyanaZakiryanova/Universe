@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './modal.module.scss';
 
 interface ModalProps {
@@ -8,6 +9,8 @@ interface ModalProps {
 }
 
 export default function Modal({ isOpen, onClose, imageSrc, description }: ModalProps) {
+  const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
+
   if (!isOpen) return null;
 
   return (
@@ -17,7 +20,13 @@ export default function Modal({ isOpen, onClose, imageSrc, description }: ModalP
           X
         </button>
         <div className={styles.info}>
-          <img src={imageSrc} alt="Full size" className={styles.fullimage} />
+          {!isImageLoaded && <p>Loading image...</p>}
+          <img
+            src={imageSrc}
+            alt="Full size"
+            className={styles.fullimage}
+            onLoad={() => setIsImageLoaded(true)}
+          />
           <p>{description}</p>
         </div>
       </div>
