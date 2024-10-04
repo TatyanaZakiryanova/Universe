@@ -6,9 +6,13 @@
   ul {
     list-style: none;
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     li {
       margin-right: 5px;
+      &:last-child {
+        margin-left: auto;
+      }
+    }
       a {
         display: block; 
         text-decoration: none;
@@ -27,4 +31,3 @@
       }
     }
   }
-}

@@ -5,6 +5,7 @@ import { ChangeEvent, useReducer } from 'react';
 import styles from './search.module.scss';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './searchReducer';
+import Image from 'next/image';
 
 export default function Search() {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -78,7 +79,14 @@ export default function Search() {
           <div key={index} className={styles.photocard} onClick={() => openModal(photo)}>
             <h3>{photo.title}</h3>
             {photo.imageLink && (
-              <img src={photo.imageLink} alt={photo.title} className={styles.photo} />
+              <Image
+                src={photo.imageLink}
+                alt={photo.title}
+                width={600}
+                height={300}
+                style={{ borderRadius: '5px' }}
+                layout="responsive"
+              />
             )}
           </div>
         ))}
