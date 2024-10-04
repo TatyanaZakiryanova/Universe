@@ -6,24 +6,25 @@ export interface NASAData {
   media_type: 'image' | 'video';
 }
 
-interface Photo {
+export interface Photo {
   title: string;
   description: string;
   imageLink?: string;
+  fullImageLink?: string;
 }
 
-interface Link {
+export interface Link {
   href: string;
   rel: string;
   render?: string;
 }
 
-interface DataItem {
+export interface DataItem {
   title: string;
   description: string;
 }
 
-interface Item {
+export interface Item {
   data: DataItem[];
   links: Link[];
 }

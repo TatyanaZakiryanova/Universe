@@ -18,7 +18,7 @@ const getDataOfTheDay = unstable_cache(
     return data;
   },
   ['data-of-the-day'],
-  { revalidate: 43200 },
+  { revalidate: 86400 },
 );
 
 export default async function DataOfTheDay() {
