@@ -1,0 +1,24 @@
+.pagination {
+   display: flex;
+   justify-content: center;
+   gap: 8px;
+   margin-top: 20px;
+   .pagebutton {
+    padding: 8px 13px;
+    background-color: rgb(104, 65, 151);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    &:hover {
+      background-color: rgb(83, 44, 128);
+      transform: translateY(-3px); 
+    }
+    &:disabled {
+      background-color: rgb(204, 204, 204);
+      cursor: not-allowed;
+    }
+  }
+}

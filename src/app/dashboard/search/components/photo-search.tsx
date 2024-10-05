@@ -1,15 +1,19 @@
 'use client';
 
 import { InitialPhoto, Item, Link, Photo } from '@/app/types/nasa';
-import { ChangeEvent, useEffect, useReducer } from 'react';
+import { ChangeEvent, useEffect, useReducer, useState } from 'react';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './search-reducer';
 import Image from 'next/image';
 import SearchInput from './search-input';
 import styles from '../styles/search.module.scss';
+import Pagination from './search-pagination';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [currentPageUrl, setCurrentPageUrl] = useState<string | null>(null);
+  const [prevPageUrl, setPrevPageUrl] = useState<string | null>(null);
+
   const {
     initialPhotos: initialStatePhotos,
     photos,
@@ -31,12 +35,12 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     dispatch({ type: 'SET_SEARCH_VALUE', payload: e.target.value });
   };
 
-  const fetchData = async () => {
+  const fetchData = async (
+    url: string = `https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`,
+  ) => {
     dispatch({ type: 'FETCH_START' });
     try {
-      const response = await fetch(
-        `https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`,
-      );
+      const response = await fetch(url);
       const data = await response.json();
       const photosData =
         data.collection.items.map((item: Item) => {
@@ -51,6 +55,12 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
             date_created: item.data[0]?.date_created,
           };
         }) || [];
+
+      const nextPageUrl = data.collection.links?.find((link: Link) => link.rel === 'next')?.href;
+      const prevPageUrl = data.collection.links?.find((link: Link) => link.rel === 'prev')?.href;
+
+      setCurrentPageUrl(nextPageUrl);
+      setPrevPageUrl(prevPageUrl);
       dispatch({ type: 'FETCH_SUCCESS', payload: photosData });
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR' });
@@ -130,6 +140,14 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
               </div>
             ))}
       </div>
+      {photos.length > 0 && (
+        <Pagination
+          prevPageUrl={prevPageUrl}
+          nextPageUrl={currentPageUrl}
+          fetchData={fetchData}
+          loading={loading}
+        />
+      )}
       {selectedPhoto && (
         <Modal
           isOpen={isModalOpen}

@@ -1,37 +1,4 @@
-.searchfield {
-    display: flex;
-    justify-content: center;
-    margin: 20px 0;
-    .input {
-      padding: 10px;
-      border: none;
-      border-radius: 8px;
-      margin-right: 10px;
-      width: 400px;
-      font-size: 16px;
-      outline: none;
-    }
-    .button {
-      padding: 10px 15px;
-      background-color: rgb(104, 65, 151);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s, transform 0.3s;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      &:hover {
-        background-color: rgb(83, 44, 128);
-        transform: translateY(-3px); 
-      }
-      &:disabled {
-        background-color: rgb(204, 204, 204);
-        cursor: not-allowed;
-      }
-    }
-  }
-
-  .title {
+.title {
     display: flex;
     justify-content: center;
   }
