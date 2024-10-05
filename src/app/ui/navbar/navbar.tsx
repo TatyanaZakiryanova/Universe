@@ -21,7 +21,7 @@ export default function Navbar() {
               href="/dashboard/search"
               className={pathname === '/dashboard/search' ? styles.active : ''}
             >
-              Search
+              Photo search
             </Link>
           </li>
           <li>

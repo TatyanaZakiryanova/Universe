@@ -6,11 +6,22 @@ export interface NASAData {
   media_type: 'image' | 'video';
 }
 
+export interface InitialPhoto {
+  copyright: string;
+  date: string;
+  explanation: string;
+  hdurl: string;
+  media_type: string;
+  title: string;
+  url: string;
+}
+
 export interface Photo {
   title: string;
   description: string;
   imageLink?: string;
   fullImageLink?: string;
+  date_created: string;
 }
 
 export interface Link {
@@ -22,6 +33,7 @@ export interface Link {
 export interface DataItem {
   title: string;
   description: string;
+  date_created: string;
 }
 
 export interface Item {
@@ -30,6 +42,7 @@ export interface Item {
 }
 
 export interface State {
+  initialPhotos: InitialPhoto[];
   photos: Photo[];
   searchValue: string;
   loading: boolean;
@@ -40,6 +53,7 @@ export interface State {
 }
 
 export type Action =
+  | { type: 'INITIALIZE_PHOTOS'; payload: InitialPhoto[] }
   | { type: 'SET_SEARCH_VALUE'; payload: string }
   | { type: 'FETCH_START' }
   | { type: 'FETCH_SUCCESS'; payload: Photo[] }
