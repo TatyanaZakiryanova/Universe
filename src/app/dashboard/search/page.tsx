@@ -1,5 +1,5 @@
 import { InitialPhoto } from '@/app/types/nasa';
-import Search from './photosearch';
+import Search from './components/photo-search';
 
 export default async function SearchPage() {
   const API_KEY = process.env.NASA_API_KEY;

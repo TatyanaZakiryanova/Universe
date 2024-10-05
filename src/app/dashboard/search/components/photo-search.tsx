@@ -2,10 +2,11 @@
 
 import { InitialPhoto, Item, Link, Photo } from '@/app/types/nasa';
 import { ChangeEvent, useEffect, useReducer } from 'react';
-import styles from './search.module.scss';
 import Modal from '@/app/ui/modal/modal';
-import { initialState, reducer } from './searchReducer';
+import { initialState, reducer } from './search-reducer';
 import Image from 'next/image';
+import SearchInput from './search-input';
+import styles from '../styles/search.module.scss';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -72,19 +73,13 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
 
   return (
     <>
-      <div className={styles.searchfield}>
-        <input
-          type="text"
-          value={searchValue}
-          onChange={handleSearch}
-          placeholder="Search for photos..."
-          onKeyUp={searchKey}
-          className={styles.input}
-        />
-        <button onClick={fetchData} disabled={loading} className={styles.button}>
-          {loading ? 'Searching...' : 'Search'}
-        </button>
-      </div>
+      <SearchInput
+        searchValue={searchValue}
+        handleSearch={handleSearch}
+        searchKey={searchKey}
+        fetchData={fetchData}
+        loading={loading}
+      />
       {!loading && !isSearched && (
         <p className={styles.title}>Search for amazing space photos provided by NASA:</p>
       )}
