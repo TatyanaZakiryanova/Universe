@@ -41,6 +41,18 @@ export interface Item {
   links: Link[];
 }
 
+export interface CollectionLink {
+  href: string | undefined;
+  rel: string | undefined;
+}
+
+export interface ApiResponse {
+  collection: {
+    items: Item[];
+    links?: CollectionLink[];
+  };
+}
+
 export interface State {
   initialPhotos: InitialPhoto[];
   photos: Photo[];

@@ -1,7 +1,7 @@
 'use client';
 
-import { InitialPhoto, Item, Link, Photo } from '@/app/types/nasa';
-import { ChangeEvent, useEffect, useReducer, useState } from 'react';
+import { ApiResponse, CollectionLink, InitialPhoto, Item, Link, Photo } from '@/app/types/nasa';
+import { ChangeEvent, useEffect, useReducer } from 'react';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './search-reducer';
 import Image from 'next/image';
@@ -40,8 +40,8 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     dispatch({ type: 'FETCH_LOADING' });
     try {
       const response = await fetch(url);
-      const data = await response.json();
-      const photosData =
+      const data: ApiResponse = await response.json();
+      const photosData: Photo[] =
         data.collection.items.map((item: Item) => {
           const imageLinkPreview = item.links?.find((link: Link) => link.rel === 'preview')?.href;
           const imageLinkFull =
@@ -55,8 +55,10 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
           };
         }) || [];
 
-      const nextPageUrl = data.collection.links?.find((link: Link) => link.rel === 'next')?.href;
-      const prevPageUrl = data.collection.links?.find((link: Link) => link.rel === 'prev')?.href;
+      const nextPageUrl =
+        data.collection.links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
+      const prevPageUrl =
+        data.collection.links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
 
       dispatch({
         type: 'FETCH_SUCCESS',
