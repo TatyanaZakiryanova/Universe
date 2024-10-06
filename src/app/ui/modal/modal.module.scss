@@ -22,7 +22,7 @@
         justify-content: flex-start;
         align-items: stretch; 
         animation: contentFadeIn 0.4s ease; 
-    .closebutton {
+    .closeButton {
         align-self: flex-end;
         margin: 0 0 10px 0;
         padding: 2px 8px;
@@ -45,11 +45,15 @@
         overflow: auto; 
         flex-grow: 1; 
         overflow-y: auto; 
-        .fullimage {
+        .fullImage {
             position: relative;
             max-width: 100%;
             max-height: 60vh;
             object-fit: contain;
+            margin-bottom: 5px;
+          }
+          span {
+            font-size: 10px;
             margin-bottom: 5px;
           }
        }

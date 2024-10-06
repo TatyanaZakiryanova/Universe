@@ -22,6 +22,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     isModalOpen,
     currentPageUrl,
     prevPageUrl,
+    totalItems,
   } = state;
 
   useEffect(() => {
@@ -51,7 +52,8 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
             description: item.data[0]?.description || 'No description',
             imageLink: imageLinkPreview,
             fullImageLink: imageLinkFull,
-            date_created: item.data[0]?.date_created,
+            date_created: item.data[0]?.date_created || 'Unknown date',
+            center: item.data[0]?.center || 'Unknown center',
           };
         }) || [];
 
@@ -59,6 +61,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
         data.collection.links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
       const prevPageUrl =
         data.collection.links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
+      const totalItems = data.collection.metadata?.total_hits || 0;
 
       dispatch({
         type: 'FETCH_SUCCESS',
@@ -66,6 +69,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
           photos: photosData,
           currentPageUrl: nextPageUrl,
           prevPageUrl: prevPageUrl,
+          totalItems: totalItems,
         },
       });
     } catch (error) {
@@ -99,23 +103,23 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
       {!loading && !isSearched && (
         <p className={styles.title}>Search for amazing space photos provided by NASA:</p>
       )}
-      {loading && <p className={styles.status}>Loading...</p>}
       {error && <p className={styles.status}>Unable to complete the request</p>}
       {!loading && !error && isSearched && photos.length === 0 && (
         <p className={styles.status}>No photos were found for this request</p>
       )}
-      <div className={styles.photoscontainer}>
+      {photos.length > 0 && <p className={styles.number}>Results found: {totalItems}</p>}
+      <div className={styles.photosContainer}>
         {photos.length > 0
           ? photos.map((photo, index) => (
               <div
                 key={index}
-                className={styles.photocard}
+                className={styles.photoCard}
                 onClick={() => openModal(photo)}
                 style={{ cursor: 'pointer' }}
               >
                 <h3>{photo.title}</h3>
                 {photo.imageLink && (
-                  <div className={styles.imagecontainer}>
+                  <div className={styles.imageContainer}>
                     <Image
                       src={photo.imageLink}
                       alt={photo.title}
@@ -130,9 +134,9 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
             ))
           : !loading &&
             initialStatePhotos.map((initialPhoto, index) => (
-              <div key={index} className={styles.photocard}>
+              <div key={index} className={styles.photoCard}>
                 <h3>{initialPhoto.title}</h3>
-                <div className={styles.imagecontainer}>
+                <div className={styles.imageContainer}>
                   <Image
                     src={initialPhoto.url}
                     alt={initialPhoto.title}
@@ -160,6 +164,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
           onClose={closeModal}
           imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
           description={selectedPhoto.description}
+          center={selectedPhoto.center}
         />
       )}
     </>

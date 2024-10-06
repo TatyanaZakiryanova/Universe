@@ -16,7 +16,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
   loading,
 }) => {
   return (
-    <div className={styles.searchfield}>
+    <div className={styles.searchField}>
       <input
         type="text"
         value={searchValue}

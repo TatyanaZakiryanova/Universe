@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
           }
         }}
         disabled={!prevPageUrl || loading}
-        className={styles.pagebutton}
+        className={styles.pageButton}
       >
         Previous
       </button>
@@ -33,7 +33,7 @@ const Pagination: React.FC<PaginationProps> = ({
           }
         }}
         disabled={!nextPageUrl || loading}
-        className={styles.pagebutton}
+        className={styles.pageButton}
       >
         Next
       </button>

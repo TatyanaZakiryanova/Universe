@@ -22,6 +22,7 @@ export interface Photo {
   imageLink?: string;
   fullImageLink?: string;
   date_created: string;
+  center: string;
 }
 
 export interface Link {
@@ -34,6 +35,7 @@ export interface DataItem {
   title: string;
   description: string;
   date_created: string;
+  center: string;
 }
 
 export interface Item {
@@ -42,14 +44,17 @@ export interface Item {
 }
 
 export interface CollectionLink {
-  href: string | undefined;
-  rel: string | undefined;
+  href?: string;
+  rel?: string;
 }
 
 export interface ApiResponse {
   collection: {
     items: Item[];
     links?: CollectionLink[];
+    metadata: {
+      total_hits: number;
+    };
   };
 }
 
@@ -64,6 +69,7 @@ export interface State {
   isModalOpen: boolean;
   currentPageUrl: string | null;
   prevPageUrl: string | null;
+  totalItems: number;
 }
 
 export type Action =
@@ -76,6 +82,7 @@ export type Action =
         photos: Photo[];
         currentPageUrl: string;
         prevPageUrl: string;
+        totalItems: number;
       };
     }
   | { type: 'FETCH_ERROR' }

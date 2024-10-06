@@ -6,9 +6,10 @@ interface ModalProps {
   onClose: () => void;
   imageSrc: string | undefined;
   description: string;
+  center: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ isOpen, onClose, imageSrc, description }) => {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, imageSrc, description, center }) => {
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   if (!isOpen) return null;
@@ -16,7 +17,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, imageSrc, description })
   return (
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
-        <button onClick={onClose} className={styles.closebutton}>
+        <button onClick={onClose} className={styles.closeButton}>
           X
         </button>
         <div className={styles.info}>
@@ -24,9 +25,10 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, imageSrc, description })
           <img
             src={imageSrc}
             alt="Full size"
-            className={styles.fullimage}
+            className={styles.fullImage}
             onLoad={() => setIsImageLoaded(true)}
           />
+          <span>Center: {center}</span>
           <p>{description}</p>
         </div>
       </div>

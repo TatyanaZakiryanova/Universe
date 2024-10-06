@@ -11,6 +11,7 @@ export const initialState: State = {
   isModalOpen: false,
   currentPageUrl: null,
   prevPageUrl: null,
+  totalItems: 0,
 };
 
 export const reducer = (state: State, action: Action): State => {
@@ -28,6 +29,7 @@ export const reducer = (state: State, action: Action): State => {
         photos: action.payload.photos,
         currentPageUrl: action.payload.currentPageUrl,
         prevPageUrl: action.payload.prevPageUrl,
+        totalItems: action.payload.totalItems,
       };
     case 'FETCH_ERROR':
       return { ...state, loading: false, error: true };

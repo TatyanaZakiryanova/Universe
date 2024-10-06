@@ -8,13 +8,19 @@
     font-size: 20px;
     margin: 10px 0;
   }
-  
-  .photoscontainer {
+
+  .number {
+    text-align: center;
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  .photosContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-top: 20px;
-    .photocard {
+    .photoCard {
       margin: 10px;
       padding: 5px;
       background-color:  rgb(44, 44, 44);
@@ -22,7 +28,7 @@
       text-align: center;
       width: 350px;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      .imagecontainer {
+      .imageContainer {
           position: relative; 
           width: 100%; 
           height: 300px; 
