@@ -50,13 +50,22 @@ export interface State {
   isSearched: boolean;
   selectedPhoto: Photo | null;
   isModalOpen: boolean;
+  currentPageUrl: string | null;
+  prevPageUrl: string | null;
 }
 
 export type Action =
   | { type: 'INITIALIZE_PHOTOS'; payload: InitialPhoto[] }
   | { type: 'SET_SEARCH_VALUE'; payload: string }
-  | { type: 'FETCH_START' }
-  | { type: 'FETCH_SUCCESS'; payload: Photo[] }
+  | { type: 'FETCH_LOADING' }
+  | {
+      type: 'FETCH_SUCCESS';
+      payload: {
+        photos: Photo[];
+        currentPageUrl: string;
+        prevPageUrl: string;
+      };
+    }
   | { type: 'FETCH_ERROR' }
   | { type: 'SET_IS_SEARCHED'; payload: boolean }
   | { type: 'OPEN_MODAL'; payload: Photo }

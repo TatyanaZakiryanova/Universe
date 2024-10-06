@@ -11,9 +11,6 @@ import Pagination from './search-pagination';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [currentPageUrl, setCurrentPageUrl] = useState<string | null>(null);
-  const [prevPageUrl, setPrevPageUrl] = useState<string | null>(null);
-
   const {
     initialPhotos: initialStatePhotos,
     photos,
@@ -23,6 +20,8 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     isSearched,
     selectedPhoto,
     isModalOpen,
+    currentPageUrl,
+    prevPageUrl,
   } = state;
 
   useEffect(() => {
@@ -38,7 +37,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
   const fetchData = async (
     url: string = `https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`,
   ) => {
-    dispatch({ type: 'FETCH_START' });
+    dispatch({ type: 'FETCH_LOADING' });
     try {
       const response = await fetch(url);
       const data = await response.json();
@@ -59,9 +58,14 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
       const nextPageUrl = data.collection.links?.find((link: Link) => link.rel === 'next')?.href;
       const prevPageUrl = data.collection.links?.find((link: Link) => link.rel === 'prev')?.href;
 
-      setCurrentPageUrl(nextPageUrl);
-      setPrevPageUrl(prevPageUrl);
-      dispatch({ type: 'FETCH_SUCCESS', payload: photosData });
+      dispatch({
+        type: 'FETCH_SUCCESS',
+        payload: {
+          photos: photosData,
+          currentPageUrl: nextPageUrl,
+          prevPageUrl: prevPageUrl,
+        },
+      });
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR' });
     }

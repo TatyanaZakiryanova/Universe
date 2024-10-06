@@ -8,7 +8,7 @@ interface ModalProps {
   description: string;
 }
 
-export default function Modal({ isOpen, onClose, imageSrc, description }: ModalProps) {
+const Modal: React.FC<ModalProps> = ({ isOpen, onClose, imageSrc, description }) => {
   const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
   if (!isOpen) return null;
@@ -32,4 +32,6 @@ export default function Modal({ isOpen, onClose, imageSrc, description }: ModalP
       </div>
     </div>
   );
-}
+};
+
+export default Modal;

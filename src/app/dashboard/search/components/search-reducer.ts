@@ -9,6 +9,8 @@ export const initialState: State = {
   isSearched: false,
   selectedPhoto: null,
   isModalOpen: false,
+  currentPageUrl: null,
+  prevPageUrl: null,
 };
 
 export const reducer = (state: State, action: Action): State => {
@@ -17,10 +19,16 @@ export const reducer = (state: State, action: Action): State => {
       return { ...state, initialPhotos: action.payload };
     case 'SET_SEARCH_VALUE':
       return { ...state, searchValue: action.payload };
-    case 'FETCH_START':
+    case 'FETCH_LOADING':
       return { ...state, loading: true, error: false, photos: [], isSearched: true };
     case 'FETCH_SUCCESS':
-      return { ...state, loading: false, photos: action.payload };
+      return {
+        ...state,
+        loading: false,
+        photos: action.payload.photos,
+        currentPageUrl: action.payload.currentPageUrl,
+        prevPageUrl: action.payload.prevPageUrl,
+      };
     case 'FETCH_ERROR':
       return { ...state, loading: false, error: true };
     case 'SET_IS_SEARCHED':
