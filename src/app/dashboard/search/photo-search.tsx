@@ -1,15 +1,15 @@
 'use client';
 
-import { ApiResponse, InitialPhoto, Photo } from '@/app/types/nasa';
+import { ApiResponse, InitialPhoto, Photo } from './types';
 import { ChangeEvent, useEffect, useReducer } from 'react';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './search-reducer';
-import SearchInput from '../../../ui/search-input';
-import styles from '../styles/search.module.scss';
-import Pagination from '../../../ui/search-pagination';
-import PhotoCard from '../../../ui/photo-card';
-import InitialPhotoCard from '../../../ui/initial-photo-card';
-import { extractPaginationLinks, extractPhotosData } from '@/app/lib/utils';
+import SearchInput from '../../ui/search-input';
+import styles from './styles/search.module.scss';
+import Pagination from '../../ui/pagination';
+import PhotoCard from '../../ui/photo-card';
+import InitialPhotoCard from '../../ui/initial-photo-card';
+import { extractPaginationLinks, extractPhotosData } from './utils';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);

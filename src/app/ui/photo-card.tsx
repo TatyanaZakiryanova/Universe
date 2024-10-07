@@ -1,3 +1,5 @@
+'use client';
+
 import styles from '../dashboard/search/styles/search.module.scss';
 import Image from 'next/image';
 

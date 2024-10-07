@@ -1,4 +1,4 @@
-import { CollectionLink, Item, Link, Photo } from '../types/nasa';
+import { CollectionLink, Item, Link, Photo } from './types';
 
 export const extractPhotosData = (items: Item[]): Photo[] => {
   return (

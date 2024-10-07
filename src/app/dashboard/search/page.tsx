@@ -1,10 +1,10 @@
-import { InitialPhoto } from '@/app/types/nasa';
-import Search from './components/photo-search';
+import { InitialPhoto } from './types';
+import Search from './photo-search';
 
 export default async function SearchPage() {
   const API_KEY = process.env.NASA_API_KEY;
   const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=10`, {
-    cache: 'no-store',
+    next: { revalidate: 60 },
   });
   const initialPhotos: InitialPhoto[] = await res.json();
 
