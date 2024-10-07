@@ -1,6 +1,6 @@
 'use client';
 
-import { ApiResponse, CollectionLink, InitialPhoto, Item, Link, Photo } from '@/app/types/nasa';
+import { ApiResponse, InitialPhoto, Photo } from '@/app/types/nasa';
 import { ChangeEvent, useEffect, useReducer } from 'react';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './search-reducer';
@@ -9,6 +9,7 @@ import styles from '../styles/search.module.scss';
 import Pagination from '../../../ui/search-pagination';
 import PhotoCard from '../../../ui/photo-card';
 import InitialPhotoCard from '../../../ui/initial-photo-card';
+import { extractPaginationLinks, extractPhotosData } from '@/app/lib/utils';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -59,33 +60,6 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR' });
     }
-  };
-
-  const extractPhotosData = (items: Item[]): Photo[] => {
-    return (
-      items.map((item: Item) => {
-        const imageLinkPreview = item.links?.find((link: Link) => link.rel === 'preview')?.href;
-        const imageLinkFull =
-          item.links?.find((link: Link) => link.rel === 'captions')?.href || imageLinkPreview;
-
-        return {
-          title: item.data[0]?.title || 'No title',
-          description: item.data[0]?.description || 'No description',
-          imageLink: imageLinkPreview,
-          fullImageLink: imageLinkFull,
-          date_created: item.data[0]?.date_created || 'Unknown date',
-          center: item.data[0]?.center || 'Unknown center',
-        };
-      }) || []
-    );
-  };
-
-  const extractPaginationLinks = (
-    links: CollectionLink[],
-  ): { nextPageUrl: string; prevPageUrl: string } => {
-    const nextPageUrl = links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
-    const prevPageUrl = links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
-    return { nextPageUrl, prevPageUrl };
   };
 
   const searchKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
