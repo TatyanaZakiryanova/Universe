@@ -1,4 +1,6 @@
-import styles from '../styles/searchinput.module.scss';
+'use client';
+
+import styles from '../dashboard/search/styles/searchinput.module.scss';
 
 interface SearchInputProps {
   searchValue: string;

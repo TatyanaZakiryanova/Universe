@@ -1,4 +1,6 @@
-import styles from '../styles/pagination.module.scss';
+'use client';
+
+import styles from '../dashboard/search/styles/pagination.module.scss';
 
 interface PaginationProps {
   prevPageUrl: string | null;

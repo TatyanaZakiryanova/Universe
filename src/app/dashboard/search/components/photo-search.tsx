@@ -4,10 +4,11 @@ import { ApiResponse, CollectionLink, InitialPhoto, Item, Link, Photo } from '@/
 import { ChangeEvent, useEffect, useReducer } from 'react';
 import Modal from '@/app/ui/modal/modal';
 import { initialState, reducer } from './search-reducer';
-import Image from 'next/image';
-import SearchInput from './search-input';
+import SearchInput from '../../../ui/search-input';
 import styles from '../styles/search.module.scss';
-import Pagination from './search-pagination';
+import Pagination from '../../../ui/search-pagination';
+import PhotoCard from '../../../ui/photo-card';
+import InitialPhotoCard from '../../../ui/initial-photo-card';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -42,25 +43,8 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     try {
       const response = await fetch(url);
       const data: ApiResponse = await response.json();
-      const photosData: Photo[] =
-        data.collection.items.map((item: Item) => {
-          const imageLinkPreview = item.links?.find((link: Link) => link.rel === 'preview')?.href;
-          const imageLinkFull =
-            item.links?.find((link: Link) => link.rel === 'captions')?.href || imageLinkPreview;
-          return {
-            title: item.data[0]?.title || 'No title',
-            description: item.data[0]?.description || 'No description',
-            imageLink: imageLinkPreview,
-            fullImageLink: imageLinkFull,
-            date_created: item.data[0]?.date_created || 'Unknown date',
-            center: item.data[0]?.center || 'Unknown center',
-          };
-        }) || [];
-
-      const nextPageUrl =
-        data.collection.links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
-      const prevPageUrl =
-        data.collection.links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
+      const photosData = extractPhotosData(data.collection.items);
+      const { nextPageUrl, prevPageUrl } = extractPaginationLinks(data.collection.links);
       const totalItems = data.collection.metadata?.total_hits || 0;
 
       dispatch({
@@ -75,6 +59,33 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
     } catch (error) {
       dispatch({ type: 'FETCH_ERROR' });
     }
+  };
+
+  const extractPhotosData = (items: Item[]): Photo[] => {
+    return (
+      items.map((item: Item) => {
+        const imageLinkPreview = item.links?.find((link: Link) => link.rel === 'preview')?.href;
+        const imageLinkFull =
+          item.links?.find((link: Link) => link.rel === 'captions')?.href || imageLinkPreview;
+
+        return {
+          title: item.data[0]?.title || 'No title',
+          description: item.data[0]?.description || 'No description',
+          imageLink: imageLinkPreview,
+          fullImageLink: imageLinkFull,
+          date_created: item.data[0]?.date_created || 'Unknown date',
+          center: item.data[0]?.center || 'Unknown center',
+        };
+      }) || []
+    );
+  };
+
+  const extractPaginationLinks = (
+    links: CollectionLink[],
+  ): { nextPageUrl: string; prevPageUrl: string } => {
+    const nextPageUrl = links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
+    const prevPageUrl = links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
+    return { nextPageUrl, prevPageUrl };
   };
 
   const searchKey = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -111,43 +122,23 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
       <div className={styles.photosContainer}>
         {photos.length > 0
           ? photos.map((photo, index) => (
-              <div
+              <PhotoCard
                 key={index}
-                className={styles.photoCard}
+                title={photo.title}
+                imageLink={photo.imageLink}
+                dateCreated={photo.date_created}
                 onClick={() => openModal(photo)}
-                style={{ cursor: 'pointer' }}
-              >
-                <h3>{photo.title}</h3>
-                {photo.imageLink && (
-                  <div className={styles.imageContainer}>
-                    <Image
-                      src={photo.imageLink}
-                      alt={photo.title}
-                      fill
-                      style={{ borderRadius: '5px', objectFit: 'cover' }}
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                  </div>
-                )}
-                <span>{photo.date_created}</span>
-              </div>
+              />
             ))
           : !loading &&
             initialStatePhotos.map((initialPhoto, index) => (
-              <div key={index} className={styles.photoCard}>
-                <h3>{initialPhoto.title}</h3>
-                <div className={styles.imageContainer}>
-                  <Image
-                    src={initialPhoto.url}
-                    alt={initialPhoto.title}
-                    fill
-                    style={{ borderRadius: '5px', objectFit: 'cover' }}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    priority={true}
-                  />
-                </div>
-                <span>{initialPhoto.date}</span>
-              </div>
+              <InitialPhotoCard
+                key={index}
+                title={initialPhoto.title}
+                url={initialPhoto.url}
+                copyright={initialPhoto.copyright}
+                date={initialPhoto.date}
+              />
             ))}
       </div>
       {photos.length > 0 && (

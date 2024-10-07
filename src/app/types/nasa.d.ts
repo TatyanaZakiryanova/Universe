@@ -51,7 +51,7 @@ export interface CollectionLink {
 export interface ApiResponse {
   collection: {
     items: Item[];
-    links?: CollectionLink[];
+    links: CollectionLink[];
     metadata: {
       total_hits: number;
     };
