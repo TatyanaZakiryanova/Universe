@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
-import './globals.css';
+import '@/app/globals.css';
 
 export const metadata: Metadata = {
   title: 'Universe',
