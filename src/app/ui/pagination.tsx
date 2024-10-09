@@ -1,7 +1,5 @@
 'use client';
 
-import styles from '../dashboard/search/styles/pagination.module.scss';
-
 interface PaginationProps {
   prevPageUrl: string | null;
   nextPageUrl: string | null;
@@ -15,8 +13,14 @@ const Pagination: React.FC<PaginationProps> = ({
   fetchData,
   loading,
 }) => {
+  const baseButtonClasses =
+    'py-2 px-4 mr-1 text-white border-none rounded-lg transition-all duration-300';
+  const enabledButtonClasses =
+    'bg-customButton cursor-pointer hover:bg-customButtonHover hover:-translate-y-1';
+  const disabledButtonClasses = 'bg-gray-300 cursor-not-allowed';
+
   return (
-    <div className={styles.pagination}>
+    <div className="flex justify-center mt-2.5">
       <button
         onClick={() => {
           if (prevPageUrl) {
@@ -24,7 +28,9 @@ const Pagination: React.FC<PaginationProps> = ({
           }
         }}
         disabled={!prevPageUrl || loading}
-        className={styles.pageButton}
+        className={`${baseButtonClasses} ${
+          loading || !prevPageUrl ? disabledButtonClasses : enabledButtonClasses
+        }`}
       >
         Previous
       </button>
@@ -35,7 +41,9 @@ const Pagination: React.FC<PaginationProps> = ({
           }
         }}
         disabled={!nextPageUrl || loading}
-        className={styles.pageButton}
+        className={`${baseButtonClasses} ${
+          loading || !nextPageUrl ? disabledButtonClasses : enabledButtonClasses
+        }`}
       >
         Next
       </button>
