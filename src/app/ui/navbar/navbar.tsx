@@ -9,9 +9,9 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={styles.navbar}>
-        <ul>
-          <li>
+      <nav className="min-w-48 bg-customBackground p-5 shadow">
+        <ul className="flex justify-start">
+          <li className="mr-3">
             <Link href="/dashboard" className={pathname === '/dashboard' ? styles.active : ''}>
               Photo of the day
             </Link>
@@ -24,7 +24,7 @@ export default function Navbar() {
               Photo search
             </Link>
           </li>
-          <li>
+          <li className="last:ml-auto">
             <Link href="/" className={pathname === '/' ? styles.active : ''}>
               Home
             </Link>

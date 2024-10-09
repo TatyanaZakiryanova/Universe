@@ -18,19 +18,26 @@ const SearchInput: React.FC<SearchInputProps> = ({
   loading,
 }) => {
   return (
-    <div className={styles.searchField}>
-      <input
-        type="text"
-        value={searchValue}
-        onChange={handleSearch}
-        placeholder="Search for photos..."
-        onKeyUp={searchKey}
-        className={styles.input}
-      />
-      <button onClick={fetchData} disabled={loading} className={styles.button}>
-        {loading ? 'Searching...' : 'Search'}
-      </button>
-    </div>
+    <>
+      <div className={styles.searchField}>
+        <input
+          type="text"
+          value={searchValue}
+          onChange={handleSearch}
+          placeholder="Search for photos..."
+          onKeyUp={searchKey}
+          className={styles.input}
+        />
+        <button onClick={fetchData} disabled={loading} className={styles.button}>
+          {loading ? 'Searching...' : 'Search'}
+        </button>
+      </div>
+      {loading && (
+        <div className={styles.loading}>
+          <div className={styles.loader}></div>
+        </div>
+      )}
+    </>
   );
 };
 
