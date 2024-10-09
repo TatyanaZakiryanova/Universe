@@ -1,4 +1,4 @@
-import styles from './searchinput.module.scss';
+import styles from './loader.module.scss';
 
 const Loader = () => {
   return (

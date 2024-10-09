@@ -1,6 +1,6 @@
 'use client';
 
-import Loader from './loader';
+import Loader from './loader/loader';
 
 interface SearchInputProps {
   searchValue: string;
