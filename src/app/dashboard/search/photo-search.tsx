@@ -7,7 +7,6 @@ import SearchInput from '../../ui/search-input';
 import styles from './styles/search.module.scss';
 import Pagination from '../../ui/pagination';
 import PhotoCard from '../../ui/photo-card';
-import InitialPhotoCard from '../../ui/initial-photo-card';
 import { extractPaginationLinks, extractPhotosData } from './utils';
 import Modal from '@/app/ui/modal';
 
@@ -86,30 +85,32 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
         loading={loading}
       />
       {!loading && !isSearched && (
-        <p className={styles.title}>Search for amazing space photos provided by NASA:</p>
+        <p className="flex justify-center">Search for amazing space photos provided by NASA:</p>
       )}
-      {error && <p className={styles.status}>Unable to complete the request</p>}
+      {error && <p className="text-center text-xl my-2.5">Unable to complete the request</p>}
       {!loading && !error && isSearched && photos.length === 0 && (
-        <p className={styles.status}>No photos were found for this request</p>
+        <p className="text-center text-xl my-2.5">No photos were found for this request</p>
       )}
-      {photos.length > 0 && <p className={styles.number}>Results found: {totalItems}</p>}
+      {photos.length > 0 && (
+        <p className="text-center text-sm my-2.5">Results found: {totalItems}</p>
+      )}
       <div className={styles.photosContainer}>
         {photos.length > 0
           ? photos.map((photo, index) => (
               <PhotoCard
                 key={index}
                 title={photo.title}
-                imageLink={photo.imageLink}
-                dateCreated={photo.date_created}
+                imageUrl={photo.imageLink}
+                date={photo.date_created}
                 onClick={() => openModal(photo)}
               />
             ))
           : !loading &&
             initialStatePhotos.map((initialPhoto, index) => (
-              <InitialPhotoCard
+              <PhotoCard
                 key={index}
                 title={initialPhoto.title}
-                url={initialPhoto.url}
+                imageUrl={initialPhoto.url}
                 copyright={initialPhoto.copyright}
                 date={initialPhoto.date}
               />

@@ -5,19 +5,24 @@ import Image from 'next/image';
 
 interface PhotoCardProps {
   title: string;
-  imageLink?: string;
-  dateCreated: string;
-  onClick: () => void;
+  imageUrl: string | undefined;
+  date: string;
+  copyright?: string;
+  onClick?: () => void;
 }
 
-const PhotoCard: React.FC<PhotoCardProps> = ({ title, imageLink, dateCreated, onClick }) => {
+const PhotoCard: React.FC<PhotoCardProps> = ({ title, imageUrl, date, copyright, onClick }) => {
   return (
-    <div className={styles.photoCard} onClick={onClick} style={{ cursor: 'pointer' }}>
+    <div
+      className={styles.photoCard}
+      onClick={onClick}
+      style={{ cursor: onClick ? 'pointer' : 'default' }}
+    >
       <h3>{title}</h3>
-      {imageLink && (
+      {imageUrl && (
         <div className={styles.imageContainer}>
           <Image
-            src={imageLink}
+            src={imageUrl}
             alt={title}
             fill
             style={{ borderRadius: '5px', objectFit: 'cover' }}
@@ -25,7 +30,8 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ title, imageLink, dateCreated, on
           />
         </div>
       )}
-      <span>{dateCreated}</span>
+      {copyright && <span>{copyright}</span>}
+      <span>{date}</span>
     </div>
   );
 };

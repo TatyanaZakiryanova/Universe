@@ -1,11 +1,12 @@
 import Navbar from '../ui/navbar';
-import styles from './styles/layout.module.scss';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={styles.layout}>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <main className={styles.content}>{children}</main>
+      <main className="flex flex-col flex-grow items-center p-6 bg-customBackground2 text-customTextColor">
+        {children}
+      </main>
     </div>
   );
 }

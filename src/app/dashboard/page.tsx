@@ -1,5 +1,4 @@
 import { unstable_cache } from 'next/cache';
-import styles from './styles/page.module.scss';
 
 interface NASAData {
   date: string;
@@ -32,16 +31,16 @@ export default async function DataOfTheDay() {
   const data = await getDataOfTheDay();
 
   if ('error' in data) {
-    return <p className={styles.error}>{data.error}</p>;
+    return <p className="pt-[200px] text-2xl">{data.error}</p>;
   }
 
   const isVideo = data.media_type === 'video';
 
   return (
-    <div className={styles.page}>
-      <div className={styles.content}>
-        <h1>{data.title}</h1>
-        <h2>{data.date}</h2>
+    <div className="text-center">
+      <div className="flex flex-col items-center gap-5">
+        <h1 className="text-2xl font-bold">{data.title}</h1>
+        <h2 className="text-xl">{data.date}</h2>
         {isVideo ? (
           <div>
             <iframe
