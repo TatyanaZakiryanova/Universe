@@ -1,11 +1,10 @@
 'use client';
 
-import styles from '../dashboard/search/styles/search.module.scss';
 import Image from 'next/image';
 
 interface PhotoCardProps {
   title: string;
-  imageUrl: string | undefined;
+  imageUrl?: string;
   date: string;
   copyright?: string;
   onClick?: () => void;
@@ -14,13 +13,13 @@ interface PhotoCardProps {
 const PhotoCard: React.FC<PhotoCardProps> = ({ title, imageUrl, date, copyright, onClick }) => {
   return (
     <div
-      className={styles.photoCard}
+      className="m-2.5 p-[5px] bg-customBackground rounded-[5px] text-center w-[350px] transition-transform transition-shadow duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
       onClick={onClick}
       style={{ cursor: onClick ? 'pointer' : 'default' }}
     >
-      <h3>{title}</h3>
+      <h3 className="text-xs mb-1">{title}</h3>
       {imageUrl && (
-        <div className={styles.imageContainer}>
+        <div className="relative w-full h-[300px] overflow-hidden">
           <Image
             src={imageUrl}
             alt={title}
@@ -30,8 +29,8 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ title, imageUrl, date, copyright,
           />
         </div>
       )}
-      {copyright && <span>{copyright}</span>}
-      <span>{date}</span>
+      {copyright && <span className="text-[10px]">{copyright}</span>}
+      <span className="text-[10px]">{date}</span>
     </div>
   );
 };

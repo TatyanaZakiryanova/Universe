@@ -1,14 +1,13 @@
 'use client';
 
-import { ApiResponse, InitialPhoto, Photo } from './types';
 import { ChangeEvent, useEffect, useReducer } from 'react';
+import { extractPaginationLinks, extractPhotosData } from './utils';
+import { ApiResponse, InitialPhoto, Photo } from './types';
 import { initialState, reducer } from './search-reducer';
 import SearchInput from '../../ui/search-input';
-import styles from './styles/search.module.scss';
 import Pagination from '../../ui/pagination';
-import PhotoCard from '../../ui/photo-card';
-import { extractPaginationLinks, extractPhotosData } from './utils';
 import Modal from '@/app/ui/modal';
+import PhotoList from './photo-list';
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -84,38 +83,15 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
         fetchData={fetchData}
         loading={loading}
       />
-      {!loading && !isSearched && (
-        <p className="flex justify-center">Search for amazing space photos provided by NASA:</p>
-      )}
-      {error && <p className="text-center text-xl my-2.5">Unable to complete the request</p>}
-      {!loading && !error && isSearched && photos.length === 0 && (
-        <p className="text-center text-xl my-2.5">No photos were found for this request</p>
-      )}
-      {photos.length > 0 && (
-        <p className="text-center text-sm my-2.5">Results found: {totalItems}</p>
-      )}
-      <div className={styles.photosContainer}>
-        {photos.length > 0
-          ? photos.map((photo, index) => (
-              <PhotoCard
-                key={index}
-                title={photo.title}
-                imageUrl={photo.imageLink}
-                date={photo.date_created}
-                onClick={() => openModal(photo)}
-              />
-            ))
-          : !loading &&
-            initialStatePhotos.map((initialPhoto, index) => (
-              <PhotoCard
-                key={index}
-                title={initialPhoto.title}
-                imageUrl={initialPhoto.url}
-                copyright={initialPhoto.copyright}
-                date={initialPhoto.date}
-              />
-            ))}
-      </div>
+      <PhotoList
+        photos={photos}
+        initialStatePhotos={initialStatePhotos}
+        loading={loading}
+        isSearched={isSearched}
+        openModal={openModal}
+        error={error}
+        totalItems={totalItems}
+      />
       {photos.length > 0 && (
         <Pagination
           prevPageUrl={prevPageUrl}
