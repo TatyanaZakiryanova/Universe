@@ -6,6 +6,9 @@ export default async function SearchPage() {
   const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=10`, {
     cache: 'no-store',
   });
+  if (!res.ok) {
+    return <p>Failed to fetch images.</p>;
+  }
   const initialPhotos: InitialPhoto[] = await res.json();
 
   const filteredPhotos = initialPhotos.filter((photo) => photo.media_type === 'image');
