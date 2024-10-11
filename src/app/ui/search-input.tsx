@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Loader from './loader/loader';
+import Button from './button';
 
 interface SearchInputProps {
   searchValue: string;
@@ -15,24 +16,18 @@ const SearchInput: React.FC<SearchInputProps> = React.memo(
   ({ searchValue, handleSearch, searchKey, fetchData, loading }) => {
     return (
       <>
-        <div className="flex justify-center my-5">
+        <div className="flex flex-col md:flex-row justify-center my-5">
           <input
             type="text"
             value={searchValue}
             onChange={handleSearch}
             placeholder="Search for photos..."
             onKeyUp={searchKey}
-            className="p-3 border-none rounded-lg mr-3 w-[400px] text-base outline-none text-black"
+            className="p-3 border-none rounded-lg mb-3 md:mb-0 md:mr-3 w-[400px] text-base outline-none text-black"
           />
-          <button
-            onClick={fetchData}
-            className={`py-2 px-4 bg-customButton text-white border-none rounded-lg cursor-pointer transition-all duration-300 hover:bg-customButtonHover hover:-translate-y-1 ${
-              loading ? 'bg-gray-300 cursor-not-allowed' : ''
-            }`}
-            disabled={loading}
-          >
+          <Button onClick={fetchData} disabled={loading} className="px-5 py-2">
             {loading ? 'Searching...' : 'Search'}
-          </button>
+          </Button>
         </div>
         {loading && <Loader />}
       </>

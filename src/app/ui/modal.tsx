@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useState } from 'react';
+import Button from './button';
 
 interface ModalProps {
   isOpen: boolean;
@@ -20,15 +21,12 @@ const Modal: React.FC<ModalProps> = React.memo(
     return (
       <div className="fixed inset-0 bg-black/70 flex justify-center items-center" onClick={onClose}>
         <div
-          className="bg-customBackground p-2.5 rounded-lg max-w-[90%] max-h-[80vh] overflow-hidden text-gray-300 text-center flex flex-col justify-center items-stretch animate-fadeIn"
+          className="bg-customBackground p-2.5 rounded-lg max-w-[90%] max-h-[80vh] min-w-[20%] min-h-[30vh] overflow-hidden text-gray-300 text-center flex flex-col justify-center items-stretch animate-fadeIn"
           onClick={(e) => e.stopPropagation()}
         >
-          <button
-            onClick={onClose}
-            className="bg-customButton text-white self-end mb-2.5 py-0.5 px-2 cursor-pointer border-none rounded transition duration-300 shadow-md hover:bg-customButtonHover hover:-translate-y-1 hover:shadow-lg"
-          >
+          <Button onClick={onClose} className="py-0.5 px-2 self-end mb-2.5">
             X
-          </button>
+          </Button>
           <div className="flex flex-col items-center overflow-auto grow">
             {!isImageLoaded && <p>Loading image...</p>}
             <img

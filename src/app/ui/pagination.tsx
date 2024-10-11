@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Button from './button';
 
 interface PaginationProps {
   prevPageUrl: string | null;
@@ -11,40 +12,30 @@ interface PaginationProps {
 
 const Pagination: React.FC<PaginationProps> = React.memo(
   ({ prevPageUrl, nextPageUrl, fetchData, loading }) => {
-    const baseButtonClasses =
-      'py-2 px-4 mr-1 text-white border-none rounded-lg transition-all duration-300';
-    const enabledButtonClasses =
-      'bg-customButton cursor-pointer hover:bg-customButtonHover hover:-translate-y-1';
-    const disabledButtonClasses = 'bg-gray-300 cursor-not-allowed';
-
     return (
       <div className="flex justify-center mt-2.5">
-        <button
+        <Button
           onClick={() => {
             if (prevPageUrl) {
               fetchData(prevPageUrl);
             }
           }}
           disabled={!prevPageUrl || loading}
-          className={`${baseButtonClasses} ${
-            loading || !prevPageUrl ? disabledButtonClasses : enabledButtonClasses
-          }`}
+          className="py-2 px-4 mr-1"
         >
           Previous
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={() => {
             if (nextPageUrl) {
               fetchData(nextPageUrl);
             }
           }}
           disabled={!nextPageUrl || loading}
-          className={`${baseButtonClasses} ${
-            loading || !nextPageUrl ? disabledButtonClasses : enabledButtonClasses
-          }`}
+          className="py-2 px-4"
         >
           Next
-        </button>
+        </Button>
       </div>
     );
   },
