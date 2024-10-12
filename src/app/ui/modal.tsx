@@ -27,7 +27,7 @@ const Modal: React.FC<ModalProps> = React.memo(
           <Button onClick={onClose} className="py-0.5 px-2 self-end mb-2.5">
             X
           </Button>
-          <div className="flex flex-col items-center overflow-auto grow">
+          <div className="flex flex-col items-center overflow-auto width-[80vw] height-[80vh]">
             {!isImageLoaded && <p>Loading image...</p>}
             <img
               src={imageSrc}
