@@ -25,6 +25,7 @@ export interface Link {
 
 export interface DataItem {
   title: string;
+  nasa_id: string;
   description: string;
   date_created: string;
   center: string;

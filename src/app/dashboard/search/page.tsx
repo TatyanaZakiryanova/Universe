@@ -1,5 +1,5 @@
+import Search from './components/photo-search';
 import { InitialPhoto } from './types';
-import Search from './photo-search';
 
 export default async function SearchPage() {
   const API_KEY = process.env.NASA_API_KEY;
@@ -7,12 +7,11 @@ export default async function SearchPage() {
     cache: 'no-store',
   });
   if (!res.ok) {
-    return <p>Failed to fetch images.</p>;
+    throw new Error('Failed to fetch data');
   }
   const initialPhotos: InitialPhoto[] = await res.json();
 
   const filteredPhotos = initialPhotos.filter((photo) => photo.media_type === 'image');
-  if (filteredPhotos.length === 0) return <p>No images found.</p>;
 
   return (
     <div>

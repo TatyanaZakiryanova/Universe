@@ -1,4 +1,4 @@
-import { InitialPhoto, Photo } from './types';
+import { InitialPhoto, Photo } from '../types';
 
 export interface State {
   initialPhotos: InitialPhoto[];

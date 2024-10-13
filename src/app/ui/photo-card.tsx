@@ -21,7 +21,7 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
       >
         <h3 className="text-xs mb-1">{title}</h3>
         {imageUrl && (
-          <div className="relative w-full h-[300px] overflow-hidden">
+          <div className="relative w-full h-[300px]">
             <Image
               src={imageUrl}
               alt={title}

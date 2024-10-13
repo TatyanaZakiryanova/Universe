@@ -1,8 +1,8 @@
 'use client';
 
 import PhotoCard from '@/app/ui/photo-card';
-import { InitialPhoto, Photo } from './types';
 import React from 'react';
+import { InitialPhoto, Photo } from '../types';
 
 interface PhotoListProps {
   loading: boolean;

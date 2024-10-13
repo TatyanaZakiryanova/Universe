@@ -1,13 +1,15 @@
 'use client';
 
-import { ChangeEvent, useCallback, useEffect, useMemo, useReducer, useState } from 'react';
-import { extractPaginationLinks, extractPhotosData } from './utils';
-import { ApiResponse, InitialPhoto, Photo } from './types';
-import { initialState, reducer } from './search-reducer';
-import SearchInput from '../../ui/search-input';
-import Pagination from '../../ui/pagination';
-import Modal from '@/app/ui/modal';
+import { ChangeEvent, useCallback, useEffect, useReducer, useState } from 'react';
+import { extractPaginationLinks, extractPhotosData } from '../utils/utils';
+import { ApiResponse, InitialPhoto, Photo } from '../types';
+import { initialState, reducer } from '../store/search-reducer';
+import SearchInput from '../../../ui/search-input';
+import Pagination from '../../../ui/pagination';
 import PhotoList from './photo-list';
+import dynamic from 'next/dynamic';
+
+const Modal = dynamic(() => import('../../../ui/modal'), { ssr: false });
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);

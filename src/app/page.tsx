@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center h-screen bg-customBackground p-12 bg-[url('/background1.jpg')] bg-cover">
+    <main className="flex flex-col items-center h-screen bg-customBackground p-12 bg-[url('/background.webp')] bg-cover bg-center">
       <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl  font-bold tracking-wide gradient-text">
         UNIVERSE
       </h1>
