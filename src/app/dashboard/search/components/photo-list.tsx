@@ -30,9 +30,9 @@ const PhotoList: React.FC<PhotoListProps> = React.memo(
         )}
         <div className="flex flex-wrap justify-center mt-5">
           {photos.length > 0
-            ? photos.map((photo, index) => (
+            ? photos.map((photo) => (
                 <PhotoCard
-                  key={index}
+                  key={photo.nasa_id}
                   title={photo.title}
                   imageUrl={photo.imageLink}
                   date={photo.date_created}

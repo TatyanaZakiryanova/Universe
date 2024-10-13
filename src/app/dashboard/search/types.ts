@@ -10,6 +10,7 @@ export interface InitialPhoto {
 
 export interface Photo {
   title: string;
+  nasa_id: string;
   description: string;
   imageLink?: string;
   fullImageLink?: string;

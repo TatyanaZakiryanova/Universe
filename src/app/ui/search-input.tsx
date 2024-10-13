@@ -23,9 +23,9 @@ const SearchInput: React.FC<SearchInputProps> = React.memo(
             onChange={handleSearch}
             placeholder="Search for photos..."
             onKeyUp={searchKey}
-            className="p-3 border-none rounded-lg mb-3 md:mb-0 md:mr-3 w-[400px] text-base outline-none text-black"
+            className="p-3 border-none rounded-lg mb-3 md:mb-0 md:mr-3 w-full md:w-[400px] text-base outline-none text-black"
           />
-          <Button onClick={fetchData} disabled={loading} className="px-5 py-2">
+          <Button onClick={fetchData} disabled={loading} className="px-5 py-2 md:w-auto">
             {loading ? 'Searching...' : 'Search'}
           </Button>
         </div>

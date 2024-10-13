@@ -27,12 +27,12 @@ const Modal: React.FC<ModalProps> = React.memo(
           <Button onClick={onClose} className="py-0.5 px-2 top-2 right-2 absolute mb-2.5">
             X
           </Button>
-          <div className="flex flex-col items-center overflow-auto">
+          <div className="flex flex-col items-center max-w-full max-h-[70vh] overflow-auto">
             {!isImageLoaded && <p>Loading image...</p>}
             <img
               src={imageSrc}
               alt="Full size"
-              className="relative max-w-[100%] max-h-[60vh] mb-1 object-contain"
+              className="mb-1 object-contain"
               onLoad={() => setIsImageLoaded(true)}
             />
             <span className="mb-1 text-[10px]">Center: {center}</span>

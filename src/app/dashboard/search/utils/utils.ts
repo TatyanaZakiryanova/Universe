@@ -9,7 +9,7 @@ export const extractPhotosData = (items: Item[]): Photo[] => {
 
       return {
         title: item.data[0]?.title || 'No title',
-        nasa_id: item.data[0].nasa_id,
+        nasa_id: item.data[0]?.nasa_id,
         description: item.data[0]?.description || 'No description',
         imageLink: imageLinkPreview,
         fullImageLink: imageLinkFull,
