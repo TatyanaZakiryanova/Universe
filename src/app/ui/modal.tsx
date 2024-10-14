@@ -19,15 +19,15 @@ const Modal: React.FC<ModalProps> = React.memo(
     if (!isOpen) return null;
 
     return (
-      <div className="fixed inset-0 bg-black/70 flex justify-center items-center" onClick={onClose}>
+      <div className="fixed inset-0 flex items-center justify-center bg-black/70" onClick={onClose}>
         <div
-          className="bg-customBackground p-2.5 pt-12 rounded-lg max-w-[90%] max-h-[80vh] min-w-[20%] min-h-[30vh] text-gray-300 text-center flex flex-col justify-center relative animate-fadeIn"
+          className="relative flex max-h-[80vh] min-h-[30vh] min-w-[20%] max-w-[90%] animate-fadeIn flex-col justify-center rounded-lg bg-customBackground p-2.5 pt-12 text-center text-gray-300"
           onClick={(e) => e.stopPropagation()}
         >
-          <Button onClick={onClose} className="py-0.5 px-2 top-2 right-2 absolute mb-2.5">
+          <Button onClick={onClose} className="absolute right-2 top-2 mb-2.5 px-2 py-0.5">
             X
           </Button>
-          <div className="flex flex-col items-center max-w-full max-h-[70vh] overflow-auto">
+          <div className="flex max-h-[70vh] max-w-full flex-col items-center overflow-auto">
             {!isImageLoaded && <p>Loading image...</p>}
             <img
               src={imageSrc}

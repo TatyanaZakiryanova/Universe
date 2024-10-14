@@ -13,7 +13,7 @@ interface PaginationProps {
 const Pagination: React.FC<PaginationProps> = React.memo(
   ({ prevPageUrl, nextPageUrl, fetchData, loading }) => {
     return (
-      <div className="flex justify-center mt-2.5">
+      <div className="mt-2.5 flex justify-center">
         <Button
           onClick={() => {
             if (prevPageUrl) {
@@ -21,7 +21,7 @@ const Pagination: React.FC<PaginationProps> = React.memo(
             }
           }}
           disabled={!prevPageUrl || loading}
-          className="py-2 px-4 mr-1"
+          className="mr-1 px-4 py-2"
         >
           Previous
         </Button>
@@ -32,7 +32,7 @@ const Pagination: React.FC<PaginationProps> = React.memo(
             }
           }}
           disabled={!nextPageUrl || loading}
-          className="py-2 px-4"
+          className="px-4 py-2"
         >
           Next
         </Button>

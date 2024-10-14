@@ -21,14 +21,14 @@ const PhotoList: React.FC<PhotoListProps> = React.memo(
         {!loading && !isSearched && (
           <p className="flex justify-center">Search for amazing space photos provided by NASA:</p>
         )}
-        {error && <p className="text-center text-xl my-2.5">Unable to complete the request</p>}
+        {error && <p className="my-2.5 text-center text-xl">Unable to complete the request</p>}
         {!loading && !error && isSearched && photos.length === 0 && (
-          <p className="text-center text-xl my-2.5">No photos were found for this request</p>
+          <p className="my-2.5 text-center text-xl">No photos were found for this request</p>
         )}
         {photos.length > 0 && (
-          <p className="text-center text-sm my-2.5">Results found: {totalItems}</p>
+          <p className="my-2.5 text-center text-sm">Results found: {totalItems}</p>
         )}
-        <div className="flex flex-wrap justify-center mt-5">
+        <div className="mt-5 flex flex-wrap justify-center">
           {photos.length > 0
             ? photos.map((photo) => (
                 <PhotoCard
@@ -40,9 +40,9 @@ const PhotoList: React.FC<PhotoListProps> = React.memo(
                 />
               ))
             : !loading &&
-              initialStatePhotos.map((initialPhoto, index) => (
+              initialStatePhotos.map((initialPhoto) => (
                 <PhotoCard
-                  key={index}
+                  key={`${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`}
                   title={initialPhoto.title}
                   imageUrl={initialPhoto.url}
                   copyright={initialPhoto.copyright}

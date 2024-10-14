@@ -39,18 +39,17 @@ export default async function DataOfTheDay() {
         <h1 className="text-2xl font-bold">{data.title}</h1>
         <h2 className="text-xl">{data.date}</h2>
         {isVideo ? (
-          <div>
+          <div className="relative h-0 w-full pb-[56.25%]">
             <iframe
-              width="90%"
-              height="400px"
               src={data.url}
               allow="autoplay; encrypted-media"
               allowFullScreen
               title={data.title}
+              className="absolute left-0 top-0 h-full w-full"
             ></iframe>
           </div>
         ) : (
-          <div className="relative w-full h-[90vh]">
+          <div className="relative h-[90vh] w-full">
             <Image src={data.url} alt={data.title} fill style={{ objectFit: 'cover' }} />
           </div>
         )}

@@ -11,10 +11,10 @@ const Button: React.FC<Button> = ({ children, onClick, className = '', disabled 
   return (
     <button
       onClick={disabled ? undefined : onClick}
-      className={`bg-customButton text-white border-none rounded-lg transition duration-300 shadow-md ${
+      className={`rounded-lg border-none bg-customButton text-white shadow-md transition duration-300 ${
         disabled
           ? 'cursor-not-allowed bg-gray-300'
-          : 'cursor-pointer hover:bg-customButtonHover hover:-translate-y-1 hover:shadow-lg'
+          : 'cursor-pointer hover:-translate-y-1 hover:bg-customButtonHover hover:shadow-lg'
       } ${className}`}
       disabled={disabled}
     >

@@ -8,13 +8,13 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="min-w-48 bg-customBackground p-5 shadow">
-        <ul className="flex justify-start">
-          <li className="mr-3">
+      <nav className="h-[80vh] w-[20vw] bg-customBackground p-5 shadow">
+        <ul className="flex flex-col gap-2">
+          <li>
             <Link
               href="/dashboard"
-              className={`block text-white p-3 rounded transition-all duration-300 hover:bg-customButtonHover ${
-                pathname === '/dashboard' ? 'bg-customButton text-white font-bold' : 'text-white'
+              className={`block rounded p-3 text-white transition-all duration-300 hover:bg-customButtonHover ${
+                pathname === '/dashboard' ? 'bg-customButton font-bold text-white' : 'text-white'
               }`}
             >
               Photo of the day
@@ -23,20 +23,20 @@ export default function Navbar() {
           <li>
             <Link
               href="/dashboard/search"
-              className={`block text-white p-3 rounded transition-all duration-300 hover:bg-customButtonHover ${
+              className={`block rounded p-3 text-white transition-all duration-300 hover:bg-customButtonHover ${
                 pathname === '/dashboard/search'
-                  ? 'bg-customButton text-white font-bold'
+                  ? 'bg-customButton font-bold text-white'
                   : 'text-white'
               }`}
             >
               Photo search
             </Link>
           </li>
-          <li className="last:ml-auto">
+          <li>
             <Link
               href="/"
-              className={`block text-white p-3 rounded transition-all duration-300 hover:bg-customButtonHover ${
-                pathname === '/' ? 'bg-customButton text-white font-bold' : 'text-white'
+              className={`block rounded p-3 text-white transition-all duration-300 hover:bg-customButtonHover ${
+                pathname === '/' ? 'bg-customButton font-bold text-white' : 'text-white'
               }`}
             >
               Home
