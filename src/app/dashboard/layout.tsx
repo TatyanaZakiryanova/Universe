@@ -1,19 +1,15 @@
-import Navbar from '../ui/navbar';
+import Header from '../shared/header';
+import Navbar from '../shared/navbar';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen">
-      <aside className="relative">
-        <Navbar />
-      </aside>
-      <div className="flex flex-grow flex-col text-customTextColor">
-        <header className="flex items-center justify-between p-4">
-          <h1 className="text-2xl">Universe</h1>
-          <div className="flex space-x-4">
-            <button className="rounded p-2">Login</button>
-          </div>
-        </header>
-        <main className="flex flex-grow justify-center p-4">{children}</main>
+    <div className="flex min-h-screen flex-col">
+      <Header />
+      <div className="flex flex-1">
+        <aside>
+          <Navbar />
+        </aside>
+        <main className="mx-3 mt-5 flex-1 p-2 text-customTextColor">{children}</main>
       </div>
     </div>
   );

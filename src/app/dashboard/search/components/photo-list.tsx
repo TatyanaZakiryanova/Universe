@@ -55,4 +55,5 @@ const PhotoList: React.FC<PhotoListProps> = React.memo(
   },
 );
 
+PhotoList.displayName = 'PhotoList';
 export default PhotoList;

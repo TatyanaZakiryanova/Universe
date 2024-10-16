@@ -36,8 +36,8 @@ export default async function DataOfTheDay() {
   return (
     <div className="text-center">
       <div className="flex flex-col items-center gap-5">
-        <h1 className="text-2xl font-bold">{data.title}</h1>
-        <h2 className="text-xl">{data.date}</h2>
+        <h1 className="text-xl font-bold">{data.title}</h1>
+        <h2 className="text-md">{data.date}</h2>
         {isVideo ? (
           <div className="relative h-0 w-full pb-[56.25%]">
             <iframe

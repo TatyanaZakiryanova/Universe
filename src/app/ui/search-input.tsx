@@ -16,7 +16,7 @@ const SearchInput: React.FC<SearchInputProps> = React.memo(
   ({ searchValue, handleSearch, searchKey, fetchData, loading }) => {
     return (
       <>
-        <div className="my-5 flex flex-col justify-center md:flex-row">
+        <div className="mb-5 flex flex-col justify-center md:flex-row">
           <input
             type="text"
             value={searchValue}
@@ -35,4 +35,5 @@ const SearchInput: React.FC<SearchInputProps> = React.memo(
   },
 );
 
+SearchInput.displayName = 'SearchInput';
 export default SearchInput;

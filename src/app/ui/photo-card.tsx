@@ -38,4 +38,5 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
   },
 );
 
+PhotoCard.displayName = 'PhotoCard';
 export default PhotoCard;

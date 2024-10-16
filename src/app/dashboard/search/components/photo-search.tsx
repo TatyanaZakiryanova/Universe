@@ -60,6 +60,7 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
           },
         });
       } catch (error) {
+        console.error(error);
         dispatch({ type: 'FETCH_ERROR' });
       }
     },
@@ -116,8 +117,10 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
         <Modal
           isOpen={isModalOpen}
           onClose={closeModal}
+          title={selectedPhoto.title}
           imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
           description={selectedPhoto.description}
+          date_created={selectedPhoto.date_created}
           center={selectedPhoto.center}
         />
       )}

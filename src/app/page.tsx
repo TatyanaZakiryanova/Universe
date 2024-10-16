@@ -1,3 +1,4 @@
+import { Telescope } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Home() {
@@ -11,8 +12,9 @@ export default function Home() {
       </span>
       <Link
         href="/dashboard"
-        className="mt-28 w-56 cursor-pointer rounded-lg border-none bg-customButton px-5 py-4 text-center text-lg text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5 sm:text-xl md:w-72 md:text-2xl"
+        className="text-md md:text-l mt-28 flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
       >
+        <Telescope size={20} />
         Discover the universe
       </Link>
     </main>
