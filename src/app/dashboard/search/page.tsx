@@ -3,7 +3,7 @@ import { InitialPhoto } from './types';
 
 export default async function SearchPage() {
   const API_KEY = process.env.NASA_API_KEY;
-  const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=10`, {
+  const res = await fetch(`https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&count=9`, {
     cache: 'no-store',
   });
   if (!res.ok) {

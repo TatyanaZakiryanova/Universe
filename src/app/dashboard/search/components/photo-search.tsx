@@ -4,12 +4,16 @@ import { ChangeEvent, useCallback, useEffect, useReducer, useState } from 'react
 import { extractPaginationLinks, extractPhotosData } from '../utils/utils';
 import { ApiResponse, InitialPhoto, Photo } from '../types';
 import { initialState, reducer } from '../store/search-reducer';
-import SearchInput from '../../../ui/search-input';
-import Pagination from '../../../ui/pagination';
 import PhotoList from './photo-list';
+
 import dynamic from 'next/dynamic';
 
-const Modal = dynamic(() => import('../../../ui/modal'), { ssr: false });
+import Pagination from '@/app/ui/pagination';
+import PhotoModal from '@/app/ui/photo-modal';
+import Input from '@/app/ui/input';
+import Button from '@/app/ui/button';
+
+const Modal = dynamic(() => import('@/app/ui/modal'), { ssr: false });
 
 export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[] }) {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -89,13 +93,21 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
 
   return (
     <>
-      <SearchInput
-        searchValue={searchValue}
-        handleSearch={handleSearch}
-        searchKey={searchKey}
-        fetchData={fetchData}
-        loading={loading}
-      />
+      <div className="mb-5 flex flex-col justify-center md:flex-row">
+        <Input
+          id="Search-input"
+          name="Search"
+          inputValue={searchValue}
+          handleInput={handleSearch}
+          searchKey={searchKey}
+          loading={loading}
+          className="mb-3 w-full p-3 md:mb-0 md:mr-3 md:w-[400px]"
+        >
+          <Button onClick={fetchData} disabled={loading} className="px-5 py-2 md:w-auto">
+            {loading ? 'Searching...' : 'Search'}
+          </Button>
+        </Input>
+      </div>
       <PhotoList
         photos={photos}
         initialStatePhotos={initialStatePhotos}
@@ -114,15 +126,14 @@ export default function Search({ initialPhotos }: { initialPhotos: InitialPhoto[
         />
       )}
       {selectedPhoto && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={closeModal}
-          title={selectedPhoto.title}
-          imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
-          description={selectedPhoto.description}
-          date_created={selectedPhoto.date_created}
-          center={selectedPhoto.center}
-        />
+        <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
+          <PhotoModal
+            imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
+            description={selectedPhoto.description}
+            date_created={selectedPhoto.date_created}
+            center={selectedPhoto.center}
+          />
+        </Modal>
       )}
     </>
   );

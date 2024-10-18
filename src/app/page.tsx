@@ -1,5 +1,6 @@
-import { Telescope } from 'lucide-react';
 import Link from 'next/link';
+
+import { Telescope } from 'lucide-react';
 
 export default function Home() {
   return (

@@ -1,7 +1,7 @@
 'use client';
 
-import PhotoCard from '@/app/ui/photo-card';
 import React from 'react';
+import PhotoCard from '@/app/ui/photo-card';
 import { InitialPhoto, Photo } from '../types';
 
 interface PhotoListProps {
